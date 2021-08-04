@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>Metrica - Shop</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta content="A premium admin dashboard template by Mannatthemes" name="description" />
+  <meta content="Mannatthemes" name="author" />
+
+  <!-- App favicon -->
+  <link rel="shortcut icon" href="/public/assets/images/favicon.ico">
+
+  <!-- DataTables -->
+  <link href="/public/assets/plugins/datatables/dataTables.bootstrap4.min.css" rel="stylesheet" type="text/css" />
+  <link href="/public/assets/plugins/datatables/buttons.bootstrap4.min.css" rel="stylesheet" type="text/css" />
+
+  <!-- Responsive datatable examples -->
+  <link href="/public/assets/plugins/datatables/responsive.bootstrap4.min.css" rel="stylesheet" type="text/css" />
+
+  <!-- App css -->
+  <link href="/public/assets/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+  <link href="/public/assets/css/icons.css" rel="stylesheet" type="text/css" />
+  <link href="/public/assets/css/metisMenu.min.css" rel="stylesheet" type="text/css" />
+  <link href="/public/assets/css/style.css" rel="stylesheet" type="text/css" />
+
+</head>
+
+<body>
+<!-- Page Content-->
+<div class="page-content">
+
+  <div class="container-fluid">
+    <!-- Page-Title -->
+    <div class="row">
+      <div class="col-sm-12">
+        <div class="page-title-box">
+          <div class="float-right">
+            <ol class="breadcrumb">
+              <li class="breadcrumb-item"><a href="javascript:void(0);">Metrica</a></li>
+              <li class="breadcrumb-item"><a href="javascript:void(0);">Others</a></li>
+              <li class="breadcrumb-item active">Datatable</li>
+            </ol>
+          </div>
+          <h4 class="page-title">Datatable</h4>
+        </div><!--end page-title-box-->
+      </div><!--end col-->
+    </div><!--end row-->
+    <!-- end page title end breadcrumb -->
+
+    <div class="row">
+      <div class="col-12">
+        <div class="card">
+          <div class="card-body">
+
+            <h4 class="mt-0 header-title">Default Datatable</h4>
+            <p class="text-muted mb-3">DataTables has most features enabled by
+              default, so all you need to do to use it with your own tables is to call
+              the construction function: <code>$().DataTable();</code>.
+            </p>
+
+            <table id="datatable" class="table table-bordered dt-responsive nowrap" style="border-collapse: collapse; border-spacing: 0; width: 100%;">
+              <thead>
+              <tr>
+                <th>Name</th>
+                <!--                                            <th>Position</th>
+                                                            <th>Office</th>
+                                                            <th>Age</th>
+                                                            <th>Start date</th>
+                                                            <th>Salary</th>-->
+              </tr>
+              </thead>
+
+
+              {{range .results}}
+              <tr>
+                <td>{{.Name}}</td>
+              </tr>
+              {{end}}
+              <!--<tr>
+                  <td>Tiger Nixon</td>
+                  <td>System Architect</td>
+                  <td>Edinburgh</td>
+                  <td>61</td>
+                  <td>2011/04/25</td>
+                  <td>$320,800</td>
+              </tr>
+              <tr>
+                  <td>Garrett Winters</td>
+                  <td>Accountant</td>
+                  <td>Tokyo</td>
+                  <td>63</td>
+                  <td>2011/07/25</td>
+                  <td>$170,750</td>
+              </tr>
+              <tr>
+                  <td>Ashton Cox</td>
+                  <td>Junior Technical Author</td>
+                  <td>San Francisco</td>
+                  <td>66</td>
+                  <td>2009/01/12</td>
+                  <td>$86,000</td>
+              </tr>-->
+              </tbody>
+
+            </table>
+
+          </div>
+        </div>
+      </div> <!--&lt;!&ndash; end col &ndash;&gt;-->
+    </div> <!--&lt;!&ndash; end row -->
+  </div><!-- container -->
+
+  <footer class="footer text-center text-sm-left">
+    &copy; 2019 Metrica <span class="text-muted d-none d-sm-inline-block float-right">Crafted with <i class="mdi mdi-heart text-danger"></i> by Ilya</span>
+  </footer><!--end footer-->
+</div>
+<!-- end page content -->
+</div>
+<!-- end page-wrapper -->
+
+<!-- jQuery  -->
+<script src="/public/assets/js/jquery.min.js"></script>
+<script src="/public/assets/js/bootstrap.bundle.min.js"></script>
+<script src="/public/assets/js/metisMenu.min.js"></script>
+<script src="/public/assets/js/waves.min.js"></script>
+<script src="/public/assets/js/jquery.slimscroll.min.js"></script>
+
+<!-- Required datatable js -->
+<script src="/public/assets/plugins/datatables/jquery.dataTables.min.js"></script>
+<script src="/public/assets/plugins/datatables/dataTables.bootstrap4.min.js"></script>
+<!-- Buttons examples -->
+<script src="/public/assets/plugins/datatables/dataTables.buttons.min.js"></script>
+<script src="/public/assets/plugins/datatables/buttons.bootstrap4.min.js"></script>
+<script src="/public/assets/plugins/datatables/jszip.min.js"></script>
+<script src="/public/assets/plugins/datatables/pdfmake.min.js"></script>
+<script src="/public/assets/plugins/datatables/vfs_fonts.js"></script>
+<script src="/public/assets/plugins/datatables/buttons.html5.min.js"></script>
+<script src="/public/assets/plugins/datatables/buttons.print.min.js"></script>
+<script src="/public/assets/plugins/datatables/buttons.colVis.min.js"></script>
+<!-- Responsive examples -->
+<script src="/public/assets/plugins/datatables/dataTables.responsive.min.js"></script>
+<script src="/public/assets/plugins/datatables/responsive.bootstrap4.min.js"></script>
+<script src="/public/assets/pages/jquery.datatable.init.js"></script>
+
+
+<!-- App js -->
+<script src="/public/assets/js/app.js"></script>
+
+</body>
+</html>
