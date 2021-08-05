@@ -19,3 +19,5 @@ tmp/
 routes/
 .git/
 none
+/.idea/
+/target/
