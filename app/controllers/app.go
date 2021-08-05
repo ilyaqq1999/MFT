@@ -14,14 +14,15 @@ type App struct {
 }
 
 func (c App) Index() revel.Result {
+	curentLocale:=c.Request.Locale
+	fmt.Printf("Текущая локаль: %s\n",curentLocale)
+	cl:=curentLocale[:2]
 	dsn := "host=localhost user=selectel password=selectel dbname=selectel port=5432 sslmode=disable"
 	db, err := gorm.Open(postgres.Open(dsn), &gorm.Config{})
 	if err != nil {
 		panic("failed to connect database")
 	}
-
 	var results []models.Result
-
 	//db.Table("shop").Select("name").Find(&results)
 
 /*	errsql:= db.Table("shop").Debug().Raw("select name::json->>'en' as name from shop;").Scan(&results).Error
@@ -29,7 +30,10 @@ func (c App) Index() revel.Result {
 		fmt.Printf("Error: %s",errsql)
 	}
 	fmt.Printf("Массив названий магазинов: %+v",results)*/
-	db.Raw("select name::json->>'en' as name, address::json->>'en' as address, phone, contact_name::json->>'en' as contact, email from shop where blocked='false';").Scan(&results)
+
+	srtforsql:="select name::json->>'"+cl+"' as name, address::json->>'"+cl+"' as address, phone, contact_name::json->>'"+cl+"' as contact, email from shop where blocked='false' and name::json->>'"+cl+"' !=''"
+
+	db.Raw(srtforsql).Scan(&results)
 	fmt.Printf("Массив названий магазинов: %+v",results)
-	return c.Render(results)
+	return c.Render(results,cl)
 }
