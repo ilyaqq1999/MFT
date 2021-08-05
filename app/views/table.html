@@ -62,18 +62,19 @@
               <thead>
               <tr>
                 <th>Name</th>
-                <!--                                            <th>Position</th>
-                                                            <th>Office</th>
-                                                            <th>Age</th>
-                                                            <th>Start date</th>
-                                                            <th>Salary</th>-->
+                <th>Address</th>
+                <th>Phone</th>
+                <th>Contact name</th>
+                <th>Email</th>
               </tr>
               </thead>
-
-
               {{range .results}}
               <tr>
                 <td>{{.Name}}</td>
+                <td>{{.Address}}</td>
+                <td>{{.Phone}}</td>
+                <td>{{.Contact}}</td>
+                <td>{{.Email}}</td>
               </tr>
               {{end}}
               <!--<tr>

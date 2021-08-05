@@ -1,10 +1,13 @@
 package controllers
 
 import (
+	"MyFTask/app/models"
+	"fmt"
 	"github.com/revel/revel"
 	"gorm.io/driver/postgres"
 	"gorm.io/gorm"
 )
+
 
 type App struct {
 	*revel.Controller
@@ -16,14 +19,17 @@ func (c App) Index() revel.Result {
 	if err != nil {
 		panic("failed to connect database")
 	}
-	//var shopname = db.Select("name::json->>'en' from shop limit 1")
-	//db.Select("name::json->>'en' from shop")
-	//var shopnames = db.Select("name::json->>'en' from shop")
-	type Result struct {
-		Name string
+
+	var results []models.Result
+
+	//db.Table("shop").Select("name").Find(&results)
+
+/*	errsql:= db.Table("shop").Debug().Raw("select name::json->>'en' as name from shop;").Scan(&results).Error
+	if errsql != nil{
+		fmt.Printf("Error: %s",errsql)
 	}
-	var results []Result
-	db.Raw("select name from shop").Scan(&results)
-	//( "SELECT id, DATA, DATA::json->>'username' AS name FROM SAMPLE  where DATA::json->>'blocked'='true' ;" );
+	fmt.Printf("Массив названий магазинов: %+v",results)*/
+	db.Raw("select name::json->>'en' as name, address::json->>'en' as address, phone, contact_name::json->>'en' as contact, email from shop where blocked='false';").Scan(&results)
+	fmt.Printf("Массив названий магазинов: %+v",results)
 	return c.Render(results)
 }
