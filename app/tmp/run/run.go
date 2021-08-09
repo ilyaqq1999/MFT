@@ -9,6 +9,7 @@ import (
 	"github.com/revel/revel"
 	_ "MyFTask/app"
 	controllers "MyFTask/app/controllers"
+	models "MyFTask/app/models"
 	tests "MyFTask/tests"
 	controllers0 "github.com/revel/modules/static/app/controllers"
 	_ "github.com/revel/modules/testrunner/app"
@@ -38,9 +39,14 @@ func Register() {
 			&revel.MethodType{
 				Name: "Index",
 				Args: []*revel.MethodArg{ 
+					&revel.MethodArg{Name: "results", Type: reflect.TypeOf((*[]models.Result)(nil)) },
 				},
 				RenderArgNames: map[int][]string{ 
-					38: []string{ 
+					44: []string{ 
+						"results",
+						"cl",
+					},
+					48: []string{ 
 						"results",
 						"cl",
 					},
