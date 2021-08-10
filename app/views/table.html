@@ -36,22 +36,25 @@
         <div class="card">
           <div class="card-body">
             <h4 class="mt-0 header-title">Default Datatable with local: {{.cl}}</h4>
-            <form method="post" action="">
+            <form method="post">
             <div class="col-sm-12 col-md-6">
               <div class="dataTables_length" id="datatable_length">
-                <label>Show <select name="datatable_length" aria-controls="datatable" class="custom-select custom-select-sm form-control form-control-sm">
+                <label>
+                  Show
+                  <select name="datatable_length" aria-controls="datatable" class="custom-select custom-select-sm form-control form-control-sm">
                   <option value="10">10</option>
                   <option value="25">25</option>
                   <option value="50">50</option>
                   <option value="100">100</option>
-                </select> entries</label>
+                </select>
+                </label>
               </div>
             </div>
             <div class="col-sm-12 col-md-6">
               <div id="datatable_filter" class="dataTables_filter">
                 <label>Search:
-                  <input type="search" name="search" class="form-control form-control-sm" placeholder="shop's name" aria-controls="datatable">
-                  <input type="submit" value="Find" id="send">
+                  <input type="search" name="search" class="form-control form-control-sm" placeholder="Shop's name" aria-controls="datatable">
+                  <input class="page-link" type="submit" value="Find" id="send">
                 </label>
 <!--                <div id ="buttonsearch">
                   <form method="post" action="localhost:9000">
@@ -61,11 +64,14 @@
                 </div>-->
             </div>
             </div>
-            </form>
+
             <table id="datatable" class="table table-bordered dt-responsive nowrap" style="border-collapse: collapse; border-spacing: 0; width: 100%;">
               <thead>
               <tr>
-                <th>Name</th>
+                <th>Name
+                  <label class="switch">
+                    <input type="checkbox" name="sortbyname">
+                  </label></th>
                 <th>Address</th>
                 <th>Phone</th>
                 <th>Contact name</th>
@@ -83,6 +89,7 @@
               {{end}}
               </tbody>
             </table>
+            </form>
             <div class="col-sm-12 col-md-7">
               <div class="dataTables_paginate paging_simple_numbers" id="datatable_paginate">
                 <ul class="pagination">

@@ -42,13 +42,11 @@ func Register() {
 					&revel.MethodArg{Name: "results", Type: reflect.TypeOf((*[]models.Result)(nil)) },
 				},
 				RenderArgNames: map[int][]string{ 
-					44: []string{ 
+					51: []string{ 
 						"results",
 						"cl",
 					},
-					48: []string{ 
-						"results",
-						"cl",
+					55: []string{ 
 					},
 				},
 			},
