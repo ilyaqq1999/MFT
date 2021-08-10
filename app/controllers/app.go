@@ -22,7 +22,7 @@ func (c App) Index(results []models.Result) revel.Result {
 	if err != nil {
 		panic("failed to connect database")
 	}
-	srtforsql := "select name::json->>'"+cl+"' as name, address::json->>'"+cl+"' as address, phone, contact_name::json->>'"+cl+"' as contact, email from shop where blocked='false' and length(name::json->>'"+cl+"')>0 limit 10"
+	srtforsql := "select name::json->>'"+cl+"' as name, address::json->>'"+cl+"' as address, phone, contact_name::json->>'"+cl+"' as contact, email from shop where blocked='false' and length(name::json->>'"+cl+"')>0 order by name asc limit 10"
 	if c.Request.Method=="POST" {
 		counttoshow:= c.Params.Get("datatable_length")
 		searching:=c.Params.Get("search")
