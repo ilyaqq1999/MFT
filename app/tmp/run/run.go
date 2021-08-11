@@ -40,15 +40,12 @@ func Register() {
 				Args: []*revel.MethodArg{ 
 				},
 				RenderArgNames: map[int][]string{ 
-					48: []string{ 
+					55: []string{ 
 						"results",
 						"cl",
 						"counttoshow",
 						"searching",
-					},
-					52: []string{ 
-						"results",
-						"cl",
+						"orderbyon",
 					},
 				},
 			},
