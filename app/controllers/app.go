@@ -50,7 +50,7 @@ func (c App) Index() revel.Result {
 
 	/*fmt.Printf("\n\nДо API. Локаль %s, counttoshowstr %s , searching %s,orderby %s, method %s, activepageint %d\n",cl,counttoshow,searching,orderby,method,activepageint)*/
 
-	results, counttoshowint, activepageint, pagesarr, pages := api.Processing(cl,counttoshow,searching,orderby,method,activepageint)//вызываю функцию обработки
+	results, counttoshowint, activepageint, pagesarr, pages := api.Processing(cl,counttoshow,searching,orderby,method,activepageint)//вызываю функцию обработки из API
 
 	/*fmt.Printf("\nПосле API.counttoshowint %d , activepageint %d, pagesarr %v, pages %d\n", counttoshowint, activepageint, pagesarr, pages)*/
 

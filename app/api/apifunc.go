@@ -7,7 +7,7 @@ import (
 	"strconv"
 )
 
-func Processing(cl, counttoshow, searching, orderby,method string, activepage int) ([]models.Result, int, int, []int, int) {
+func Processing(cl, counttoshow, searching, orderby,method string, activepage int) ([]models.Result, int, int, []int, int) {//функция обработки
 
 	//fmt.Printf("GET.Сколько показывать:%s, слово для поиска: %s, сортировка по имени: %s, локаль:%s\n",counttoshow,searching,orderby,cl)
 
