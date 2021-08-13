@@ -2,33 +2,19 @@
 <html lang="en">
 <head>
   <meta charset="utf-8" />
-  <title>Metrica - Shop</title>
+  <title>Shop's</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta content="A premium admin dashboard template by Mannatthemes" name="description" />
-  <meta content="Mannatthemes" name="author" />
-
-  <!-- App favicon -->
-  <link rel="shortcut icon" href="/public/assets/images/favicon.ico">
-
-  <!-- DataTables -->
-  <link href="/public/assets/plugins/datatables/dataTables.bootstrap4.min.css" rel="stylesheet" type="text/css" />
-  <link href="/public/assets/plugins/datatables/buttons.bootstrap4.min.css" rel="stylesheet" type="text/css" />
-
-  <!-- Responsive datatable examples -->
-  <link href="/public/assets/plugins/datatables/responsive.bootstrap4.min.css" rel="stylesheet" type="text/css" />
-
+  <meta content="Ilya" name="author" />
   <!-- App css -->
-  <link href="/public/assets/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
-  <link href="/public/assets/css/icons.css" rel="stylesheet" type="text/css" />
-  <link href="/public/assets/css/metisMenu.min.css" rel="stylesheet" type="text/css" />
-  <link href="/public/assets/css/style.css" rel="stylesheet" type="text/css" />
-
+  <link href="/public/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+  <link href="/public/css/icons.css" rel="stylesheet" type="text/css" />
+  <link href="/public/css/metisMenu.min.css" rel="stylesheet" type="text/css" />
+  <link href="/public/css/style.css" rel="stylesheet" type="text/css" />
 </head>
-
 <body>
 <!-- Page Content-->
 <div class="page-content">
-
   <div class="container-fluid">
     <!-- Page-Title -->
     <div class="row">
@@ -36,8 +22,6 @@
         <div class="page-title-box">
           <div class="float-right">
             <ol class="breadcrumb">
-              <li class="breadcrumb-item"><a href="javascript:void(0);">Metrica</a></li>
-              <li class="breadcrumb-item"><a href="javascript:void(0);">Others</a></li>
               <li class="breadcrumb-item active">Datatable</li>
             </ol>
           </div>
@@ -51,23 +35,49 @@
       <div class="col-12">
         <div class="card">
           <div class="card-body">
-
-            <h4 class="mt-0 header-title">Default Datatable with local: {{.cl}}</h4>
-            <p class="text-muted mb-3">DataTables has most features enabled by
-              default, so all you need to do to use it with your own tables is to call
-              the construction function: <code>$().DataTable();</code>.
-            </p>
-
+<!-- <h4 class="mt-0 header-title">Default Datatable with local: {{.cl}}, count: {{.counttoshowint}}, search: {{.searching}} and order by: {{.orderbyon}}</h4>-->
+            <form method="post">
+            <div class="col-sm-12 col-md-6">
+              <div class="dataTables_length" id="datatable_length">
+                <label>
+                  Show
+                  <select name="datatable_length" aria-controls="datatable" class="custom-select custom-select-sm form-control form-control-sm">
+                    <!--Лучше пока не придумал-->
+                  <option value="10" {{if eq .counttoshowint 10}} selected {{end}}>10</option>
+                  <option value="25" {{if eq .counttoshowint 25}} selected {{end}}>25</option>
+                  <option value="50" {{if eq .counttoshowint 50}} selected {{end}}>50</option>
+                  <option value="100"{{if eq .counttoshowint 100}} selected {{end}}>100</option>
+                </select>
+                </label>
+              </div>
+            </div>
+            <div class="col-sm-12 col-md-6">
+              <div id="datatable_filter" class="dataTables_filter">
+                <label>Search:
+                  <input {{if .searching}} value="{{.searching}}" {{end}} type="search" name="search" class="form-control form-control-sm" placeholder="Key word" aria-controls="datatable">
+                  <input class="page-link" type="submit" value="Find" id="send">
+                </label>
+            </div>
+            </div>
             <table id="datatable" class="table table-bordered dt-responsive nowrap" style="border-collapse: collapse; border-spacing: 0; width: 100%;">
               <thead>
               <tr>
-                <th>Name</th>
+                <th>Name
+                  <label class="switch">
+                    <input {{if .orderbyon}} checked {{end}} type="checkbox" name="sortbyname">
+                  </label></th>
                 <th>Address</th>
                 <th>Phone</th>
                 <th>Contact name</th>
                 <th>Email</th>
               </tr>
               </thead>
+              <tbody>
+              {{if not .results}}
+              <tr class="odd">
+                <td colspan="5" class="dataTables_empty">No matching records found</td>
+              </tr>
+              {{else}}
               {{range .results}}
               <tr>
                 <td>{{.Name}}</td>
@@ -77,75 +87,45 @@
                 <td>{{.Email}}</td>
               </tr>
               {{end}}
-              <!--<tr>
-                  <td>Tiger Nixon</td>
-                  <td>System Architect</td>
-                  <td>Edinburgh</td>
-                  <td>61</td>
-                  <td>2011/04/25</td>
-                  <td>$320,800</td>
-              </tr>
-              <tr>
-                  <td>Garrett Winters</td>
-                  <td>Accountant</td>
-                  <td>Tokyo</td>
-                  <td>63</td>
-                  <td>2011/07/25</td>
-                  <td>$170,750</td>
-              </tr>
-              <tr>
-                  <td>Ashton Cox</td>
-                  <td>Junior Technical Author</td>
-                  <td>San Francisco</td>
-                  <td>66</td>
-                  <td>2009/01/12</td>
-                  <td>$86,000</td>
-              </tr>-->
+              {{end}}
               </tbody>
-
             </table>
-
+            <div class="col-sm-12 col-md-7">
+              <div class="dataTables_paginate paging_simple_numbers" id="datatable_paginate">
+                <ul class="pagination">
+                  <li class="paginate_button page-item previous {{if le .activepageint 1}} disabled {{end}}" id="datatable_previous">
+                    <input name="prev" class="page-link" type="submit" value="prev">
+                  </li>
+                  {{$activepageint:=.activepageint}}
+                  {{range $value := .pagesarr}}
+                  {{if eq $value $activepageint}}
+                  <li class="paginate_button page-item active">
+                    <input name="activepage" class="page-link" type="submit" value="{{$value}}">
+                  </li>
+                  {{else}}
+                  <li class="paginate_button page-item">
+                    <input name="page" class="page-link" type="submit" value="{{$value}}">
+                  </li>
+                  {{end}}
+                  {{end}}
+                  <li class="paginate_button page-item next {{if eq .activepageint .pages}} disabled {{end}}" id="datatable_next">
+                    <input name="next" class="page-link" type="submit" value="next">
+                  </li>
+                </ul>
+              </div>
+            </div>
+            </form>
           </div>
         </div>
-      </div> <!--&lt;!&ndash; end col &ndash;&gt;-->
-    </div> <!--&lt;!&ndash; end row -->
-  </div><!-- container -->
-
+      </div>
+    </div>
+  </div>
   <footer class="footer text-center text-sm-left">
-    &copy; 2019 Metrica <span class="text-muted d-none d-sm-inline-block float-right">Crafted with <i class="mdi mdi-heart text-danger"></i> by Ilya</span>
+    &copy; 2021 III <span class="text-muted d-none d-sm-inline-block float-right">Crafted with <i class="mdi mdi-heart text-danger"></i> by Ilya</span>
   </footer><!--end footer-->
 </div>
 <!-- end page content -->
 </div>
 <!-- end page-wrapper -->
-
-<!-- jQuery  -->
-<script src="/public/assets/js/jquery.min.js"></script>
-<script src="/public/assets/js/bootstrap.bundle.min.js"></script>
-<script src="/public/assets/js/metisMenu.min.js"></script>
-<script src="/public/assets/js/waves.min.js"></script>
-<script src="/public/assets/js/jquery.slimscroll.min.js"></script>
-
-<!-- Required datatable js -->
-<script src="/public/assets/plugins/datatables/jquery.dataTables.min.js"></script>
-<script src="/public/assets/plugins/datatables/dataTables.bootstrap4.min.js"></script>
-<!-- Buttons examples -->
-<script src="/public/assets/plugins/datatables/dataTables.buttons.min.js"></script>
-<script src="/public/assets/plugins/datatables/buttons.bootstrap4.min.js"></script>
-<script src="/public/assets/plugins/datatables/jszip.min.js"></script>
-<script src="/public/assets/plugins/datatables/pdfmake.min.js"></script>
-<script src="/public/assets/plugins/datatables/vfs_fonts.js"></script>
-<script src="/public/assets/plugins/datatables/buttons.html5.min.js"></script>
-<script src="/public/assets/plugins/datatables/buttons.print.min.js"></script>
-<script src="/public/assets/plugins/datatables/buttons.colVis.min.js"></script>
-<!-- Responsive examples -->
-<script src="/public/assets/plugins/datatables/dataTables.responsive.min.js"></script>
-<script src="/public/assets/plugins/datatables/responsive.bootstrap4.min.js"></script>
-<script src="/public/assets/pages/jquery.datatable.init.js"></script>
-
-
-<!-- App js -->
-<script src="/public/assets/js/app.js"></script>
-
 </body>
 </html>
