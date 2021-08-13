@@ -16,8 +16,8 @@ type App struct {
 }
 
 func (c App) Index() revel.Result {
-	curentLocale:=c.Request.Locale//локаль
-	cl:=curentLocale[:2]//локаль
+	curentLocale:=c.Request.Locale//локализация
+	cl:=curentLocale[:2]//локализация
 	if countshow:= c.Params.Get("datatable_length");countshow!=""{//количетсво для показа
 		counttoshow = countshow
 	} else {
