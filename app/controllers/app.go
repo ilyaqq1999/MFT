@@ -10,27 +10,28 @@ import (
 )
 
 var activepageint =1
-/*var counttoshow  =10
+var counttoshow  ="10"
 var searching =""
-var orderby =""*/
+var orderby =""
 
 type App struct {
 	*revel.Controller
 }
 
 func (c App) Index() revel.Result {
-	curentLocale:=c.Request.Locale //локаль
-	cl:=curentLocale[:2]
-	counttoshow:= c.Params.Get("datatable_length")//количетсво для показа
-	if counttoshow==""{
+	curentLocale:=c.Request.Locale//локаль
+	cl:=curentLocale[:2]//локаль
+	if countshow:= c.Params.Get("datatable_length");countshow!=""{//количетсво для показа
+		counttoshow = countshow
+	} else {
 		counttoshow="10"
 	}
-	searching:=c.Params.Get("search")//слово для поиска
-	orderby:=c.Params.Get("sortbyname")//сортировка вверх/вниз
+	searching=c.Params.Get("search")//слово для поиска
+	orderby=c.Params.Get("sortbyname")//сортировка вверх/вниз
 	orderbyon:=orderby
 	if orderby == "on" {
 		orderby = "order by name desc"
-	} else{
+	} else {
 		orderby="order by name asc"
 	}
 
@@ -58,17 +59,16 @@ func (c App) Index() revel.Result {
 		counttoshowint=10
 	}
 
-
 	var count int//считаю количество записей по select в БД до оффсета и лимита
 	db.Raw("select count(name) from ("+srtforsql+") as count").Scan(&count)
 
 	pages:=1//количество страниц
 
-	for i:=count-counttoshowint; i>0;i-=counttoshowint {
+	for i:=count-counttoshowint; i>0;i-=counttoshowint {//количество страниц
 		pages++
 	}
 
-	pagesarr:= make([]int,pages)//массив страниц, чтобы в шаблоне пробежаться через range
+	pagesarr:= make([]int,pages)//массив страниц, чтобы в шаблоне отобразить через range
 	for i:=0;i<pages;i++ {
 		pagesarr[i]=i+1
 	}
@@ -86,6 +86,10 @@ func (c App) Index() revel.Result {
 		activepageint++
 	}
 
+	if pages<activepageint {//если активная страничка была больше, чем количество страниц после запроса
+		activepageint=1
+	}
+
 	offset:=strconv.Itoa((activepageint-1)*counttoshowint)//оффсет
 
 	fmt.Printf("Активная страничка: %d, сколько показывать: %d, offset %s, количество записей в БД %d, количество страниц:%d\n",activepageint,counttoshowint,offset,count,pages)
@@ -94,5 +98,6 @@ func (c App) Index() revel.Result {
 	srtforsql+=" offset "+offset+" limit "+counttoshow//добавляю к запросу оффсет и лимит
 
 	db.Raw(srtforsql).Scan(&results)
+
 	return c.Render(results,counttoshowint,searching,orderbyon,activepageint,pagesarr,pages)
 }
