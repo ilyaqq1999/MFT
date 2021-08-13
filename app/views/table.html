@@ -35,9 +35,7 @@
       <div class="col-12">
         <div class="card">
           <div class="card-body">
-<!--
-            <h4 class="mt-0 header-title">Default Datatable with local: {{.cl}}, count: {{.counttoshowint}}, search: {{.searching}} and order by: {{.orderbyon}}</h4>
--->
+<!-- <h4 class="mt-0 header-title">Default Datatable with local: {{.cl}}, count: {{.counttoshowint}}, search: {{.searching}} and order by: {{.orderbyon}}</h4>-->
             <form method="post">
             <div class="col-sm-12 col-md-6">
               <div class="dataTables_length" id="datatable_length">
@@ -100,9 +98,15 @@
                   </li>
                   {{$activepageint:=.activepageint}}
                   {{range $value := .pagesarr}}
-                  <li class="paginate_button page-item  {{if eq $value $activepageint}} active {{end}}">
+                  {{if eq $value $activepageint}}
+                  <li class="paginate_button page-item active">
                     <input name="activepage" class="page-link" type="submit" value="{{$value}}">
                   </li>
+                  {{else}}
+                  <li class="paginate_button page-item">
+                    <input name="page" class="page-link" type="submit" value="{{$value}}">
+                  </li>
+                  {{end}}
                   {{end}}
                   <li class="paginate_button page-item next {{if eq .activepageint .pages}} disabled {{end}}" id="datatable_next">
                     <input name="next" class="page-link" type="submit" value="next">
@@ -116,7 +120,6 @@
       </div>
     </div>
   </div>
-
   <footer class="footer text-center text-sm-left">
     &copy; 2021 III <span class="text-muted d-none d-sm-inline-block float-right">Crafted with <i class="mdi mdi-heart text-danger"></i> by Ilya</span>
   </footer><!--end footer-->
