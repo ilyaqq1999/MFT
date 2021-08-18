@@ -43,10 +43,10 @@
                   Show
                   <select name="datatable_length" aria-controls="datatable" class="custom-select custom-select-sm form-control form-control-sm">
                     <!--Лучше пока не придумал-->
-                  <option value="10">10</option>
-                  <option value="25">25</option>
-                  <option value="50">50</option>
-                  <option value="100">100</option>
+                  <option value="10" {{if eq .counttoshowint 10}} selected {{end}}>10</option>
+                  <option value="25" {{if eq .counttoshowint 25}} selected {{end}}>25</option>
+                  <option value="50" {{if eq .counttoshowint 50}} selected {{end}}>50</option>
+                  <option value="100"{{if eq .counttoshowint 100}} selected {{end}}>100</option>
                 </select>
                 </label>
               </div>
@@ -54,7 +54,7 @@
             <div class="col-sm-12 col-md-6">
               <div id="datatable_filter" class="dataTables_filter">
                 <label>Search:
-                  <input type="search" name="search" class="form-control form-control-sm" placeholder="Key word" aria-controls="datatable">
+                  <input {{if .searching}} value="{{.searching}}" {{end}} type="search" name="search" class="form-control form-control-sm" placeholder="Key word" aria-controls="datatable">
                   <input class="page-link" type="submit" value="Find" id="send">
                 </label>
             </div>
@@ -64,7 +64,7 @@
               <tr>
                 <th>Name
                   <label class="switch">
-                    <input type="checkbox" name="sortbyname">
+                    <input {{if .orderbyon}} checked {{end}} type="checkbox" name="sortbyname">
                   </label></th>
                 <th>Address</th>
                 <th>Phone</th>
@@ -93,13 +93,22 @@
             <div class="col-sm-12 col-md-7">
               <div class="dataTables_paginate paging_simple_numbers" id="datatable_paginate">
                 <ul class="pagination">
-                  <li class="paginate_button page-item previous disabled" id="datatable_previous">
+                  <li class="paginate_button page-item previous {{if le .activepageint 1}} disabled {{end}}" id="datatable_previous">
                     <input name="prev" class="page-link" type="submit" value="prev">
                   </li>
+                  {{$activepageint:=.activepageint}}
+                  {{range $value := .pagesarr}}
+                  {{if eq $value $activepageint}}
                   <li class="paginate_button page-item active">
-                    <input name="activepage" class="page-link" type="submit" value="1">
+                    <input name="activepage" class="page-link" type="submit" value="{{$value}}">
                   </li>
-                  <li class="paginate_button page-item next disabled" id="datatable_next">
+                  {{else}}
+                  <li class="paginate_button page-item">
+                    <input name="page" class="page-link" type="submit" value="{{$value}}">
+                  </li>
+                  {{end}}
+                  {{end}}
+                  <li class="paginate_button page-item next {{if eq .activepageint .pages}} disabled {{end}}" id="datatable_next">
                     <input name="next" class="page-link" type="submit" value="next">
                   </li>
                 </ul>
